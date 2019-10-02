@@ -1,17 +1,9 @@
-// id: 'x56w',
-// title: 'Title 1',
-// rating: 3,
-// url: 'http://www.title1.com',
-// desc: 'lorem ipsum dolor sit',
-// expanded: false
-
 const myData = {
   bookmarks: [],
-  addin: false,
+  adding: false,
   error: null,
   filter: 0
 };
-
 
 
 const findById = function(id) {
@@ -19,6 +11,7 @@ const findById = function(id) {
 };
   
 const addItem = function (newBookmark) {
+  Object.assign(newBookmark, {expanded: false});
   this.myData.bookmarks.push(newBookmark);
 };
   

@@ -7,7 +7,7 @@ import store from './store.js';
 
 const generateBookmarksElement = function(bookmark) {
 
-  let bookmarkExpandView = '';
+  let bookmarkExpandView = ``;
   let bookmarkTitle = `<span class="rating-span"> ${bookmark.rating} </span>`;
   console.log(bookmark.expanded);
   if(bookmark.expanded) {
@@ -17,7 +17,7 @@ const generateBookmarksElement = function(bookmark) {
     bookmarkExpandView = `
       <div class="expandContent">
         <button class="visit-btn">>
-        <span class="visit-btn-label"> Visit Swite </span>
+        <span class="visit-btn-label"> Visit Site </span>
         </button>
 
         <span class="rating-span"> ${bookmark.rating} </span>
@@ -27,8 +27,8 @@ const generateBookmarksElement = function(bookmark) {
   }
 
   return `
-   <li class="bookmark-element" data-bookmark-id="${bookmark.id}">
-    <span class="bookmark-item"> ${bookmark.title} ${bookmarkTitle} </span>
+   <li class = "bookmark-element" data-bookmark-id="${bookmark.id}">
+     <span class="bookmark-item-title"> ${bookmark.title} ${bookmarkTitle} </span>
     ${bookmarkExpandView};
     </li>
   `;
@@ -43,13 +43,13 @@ const generateBookmarksString = function (mybookmark) {
 
 const render = function() {
 
-  let form = '';
+  let form = ``;
   store.myData.filter = 0;
 
- console.log(store.myData.addin);
+ console.log(store.myData.adding);
   let items = [...store.myData.bookmarks];
 
-  if(store.myData.addin) {
+  if(store.myData.adding) {
          form = `
     <fieldset class="bookmarkDetails">
         <Legend>Create a Bookmark</Legend>
@@ -85,7 +85,7 @@ const render = function() {
   `}
 
   $('.displayBookmarkForm').html(form);
-    if(store.myData.addin) {
+    if(store.myData.adding) {
       handleCancelBtn();
     }
   //rendering in the DOM 
@@ -97,16 +97,37 @@ const render = function() {
 };
 
 
-/**
- * Handler for new bookmark clicked
- */
+
 const handleNewBookmarkSubmit= function() {
   $('.btn-new-bookmark').on('click', function () {
-    //event.preventDefault();
-    console.log('handle new bookmark is working');
     store.toggleAddingBookmark();
     render();
  });
+};
+
+const handleCancelBtn = function() {
+  $('.bookmark-btn-cancel').on('click', function () {
+    store.toggleAddingBookmark();
+    render();
+  });
+};
+
+const getElementID = function(item) {
+  return $(item)
+      .closest('.bookmark-element')
+      .data('bookmark-id');
+};
+
+const handleBookmarkClicked = function () {
+  $('.bookmarks-list-results').on('click','.bookmark-item-title', event => {
+    console.log(event.currentTraget);
+    const id = getElementID(event.currentTraget);
+    console.log(id);
+    const item = store.findById(id);
+    console.log(item);
+    store.findAndUpdate(id, {expanded: !item.expanded});
+    render();
+  });
 };
 
 const handleBookmarkAdd = function() {
@@ -139,12 +160,6 @@ const handleBookmarkAdd = function() {
 /**
  * Handler for cancel button
  */
-const handleCancelBtn = function() {
-  $('.bookmark-btn-cancel').on('click', function () {
-    store.toggleAddingBookmark();
-    render();
-  });
-};
 
 
 /**
@@ -184,6 +199,7 @@ const handleFilterRatingsDropdown = function() {
  * Event Listener Handlers
  */
 const bindEventListeners = function() {
+  handleBookmarkClicked();
   handleNewBookmarkSubmit();
   handleBookmarkAdd();
   handleCancelBtn();

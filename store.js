@@ -1,30 +1,19 @@
-const myData = {
-  bookmarks: [{
-    id: 'x56w',
-    title: 'Title 1',
-    rating: 3,
-    url: 'http://www.title1.com',
-    desc: 'lorem ipsum dolor sit',
-    expanded: false
-  },
-  {
-    id: '6ffw',
-    title: 'Title 2',
-    rating: 5,
-    url: 'http://www.title2.com',
-    desc: 'dolorum tempore deserunt',
-    expanded: false
-  } 
+// id: 'x56w',
+// title: 'Title 1',
+// rating: 3,
+// url: 'http://www.title1.com',
+// desc: 'lorem ipsum dolor sit',
+// expanded: false
 
-  ],
-  adding: false,
+const myData = {
+  bookmarks: [],
+  addin: false,
   error: null,
-  filter: 0,
+  filter: 0
 };
 
 
-   
-  
+
 const findById = function(id) {
   return this.myData.booksmarks.find(currentItem => currentItem.id === id);
 };
@@ -43,7 +32,7 @@ const findAndUpdate = function(id, newData) {
   Object.assign(currentItem, newData);
 };
   
-const toggleAddBookmark = function() {
+const toggleAddingBookmark = function() {
   this.myData.adding = !this.myData.adding;
 };
   
@@ -60,6 +49,6 @@ export default {
   addItem,
   findAndDelete,
   findAndUpdate,
-  toggleAddBookmark,
+  toggleAddingBookmark,
   setError
 };

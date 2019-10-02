@@ -23,13 +23,39 @@
     display: flex;
     flex-direction: column;
     flex: 1;
-    margin: 5rem;
+    margin: 4rem;
 
     background-color :white;
     text-align: center;
     
 
 }
+.btn-new-bookmark {
+    width: 25%;
+    padding: .2rem 4rem;
+    font-size: 1rem;
+    font-weight: 400;
+ }
+
+ .btn-new-bookmark {
+     margin-right: 2rem;
+ }
+
+ .btn:not(.btn-delete-bookmark){
+    background-color: #008B8B;
+    color: white;
+    border-radius: .5rem;
+    border: 2px solid lightgray;
+    
+    text-transform: uppercase;
+    cursor: pointer;
+ }
+
+ .btn:hover {
+    background-color: #1C2833;
+    border: 1px solid #7FFFD4;
+ }
+
  /*
   .main{
       display: flex;

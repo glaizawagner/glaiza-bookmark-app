@@ -1,46 +1,46 @@
-const STORE = { 
-  bookmarks: [], 
+const myData = {
+  bookmarks: [],
   adding: false,
   error: null,
-  filter: 0
+  filter: 0,
 };
-  
+
+
    
   
 const findById = function(id) {
-  return this.STORE.booksmarks.find(currentItem => currentItem.id === id);
+  return this.myData.booksmarks.find(currentItem => currentItem.id === id);
 };
   
 const addItem = function (newBookmark) {
-  Object.assign(newBookmark, {expanded:false})
-  this.STORE.bookmarks.push(newBookmark);
+  this.myData.bookmarks.push(newBookmark);
 };
   
   
 const findAndDelete = function(id) {
-  this.STORE.bookmarks = this.STORE.bookmarks.filter(currentItem => currentItem.id !==id);
+  this.myData.bookmarks = this.myData.bookmarks.filter(currentItem => currentItem.id !==id);
 };
   
 const findAndUpdate = function(id, newData) {
-  let currentItem = this.findById(id);
+  let currentItem = this.myData.findById(id);
   Object.assign(currentItem, newData);
 };
   
-const toggleAdding = function() {
-  this.STORE.adding = !this.STORE.adding;
+const toggleAddBookmark = function() {
+  this.myData.adding = !this.myData.adding;
 };
   
 const setError = function(error) {
-  this.error = error;
+  this.myData.error = error;
 };
    
   
 export default {
-  STORE,
+  myData,
   findById,
   addItem,
   findAndDelete,
   findAndUpdate,
-  toggleAdding,
+  toggleAddBookmark,
   setError
 };

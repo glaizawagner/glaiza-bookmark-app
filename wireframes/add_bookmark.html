@@ -1,5 +1,4 @@
-<form id="bookmark-list-form">
-                
+<form id="addNewbookmarkform">
     <fieldset class="bookmarkDetails">
         <Legend>Create a Bookmark</Legend>
         <div>
@@ -14,24 +13,22 @@
         <div>
             <label for= "addBookmarkRating">Rating(s):</label>
             <select id= "addBookmarkRating" name="rating" required>
-            <option selected disabled>Select Ratings</option>
-            <option value=5>5 stars</option>
-            <option value=4>4 stars</option> 
-            <option value=3>3 stars</option> 
-            <option value=2>2 stars</option> 
-            <option value=1>1 star</option> 
+                <option selected disabled>Select Ratings</option>
+                <option value=5>5 stars</option>
+                <option value=4>4 stars</option> 
+                <option value=3>3 stars</option> 
+                <option value=2>2 stars</option> 
+                <option value=1>1 star</option> 
             </select>       
         </div> 
 
-<label for="addBookmarkDescription">Description</label>
-<textarea class="addBookmarkDescription name = "description" >
-    Description (optional)
-</textarea>
-
-<div >
-    <button type="submit class="bookmark-btn-create">Create</button>
-    <button type="button class="bookmark-btn-cancel" >Cancel</button>
-</div>
-
-</fieldset>
+        <div>
+            <label for="addBookmarkDescription">Description</label>
+            <textarea class="addBookmarkDescription name = "description" > Description (optional)</textarea>
+        </div>
+        
+        <button type="submit" class="bookmark-btn-create">Create</button>
+        <button type="button" class="bookmark-btn-cancel" >Cancel</button>
+    </fieldset>
 </form>
+

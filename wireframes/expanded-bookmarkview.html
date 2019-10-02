@@ -1,43 +1,43 @@
-
-<section class="top-row">
-    <div class="js-controls">
-        <button type="button" name="btn btn-new-bookmark" class="btn btn-new-bookmark" value="New"><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
+ <form id="bookmarkControls">
+    <button type="button" name="btn btn-new-bookmark" class="btn btn-new-bookmark" value="New"><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
         </button> 
-        <select class= "filterByRating"><i class="fas fa-caret-down"></i> 
+            <select class= "filterByRating"><i class="fas fa-caret-down"></i> 
                 <option selected disabled>Filter By:</option>
                 <option value=5>5 stars</option>
                 <option value=4>4 stars</option> 
                 <option value=3>3 stars</option> 
                 <option value=2>2 stars</option> 
                 <option value=1>1 star</option> 
-              </select>
-    </div>
- </section>
-        <ul c"class ="bookmarks-list-results"">
-            <li>
-                Title <span class="title-span"> Facebook </span>
-                Rating <span class="rating-span"> 1 Star</span>
-
+                </select>
+</form>
+    <ul "class ="bookmarks-list-results"">
+        <li>
+            <div class="title-rating">
+            Title <span class="title-span"> Facebook </span>
+            Rating <span class="rating-span"> 1 Star</span>
+            </div>
+            <form class="delete-btn">
                 <button type="submit">Delete Bookmark?</button>
-
-                <div class="expandContent">
-                    <form action="https://www.google.com/">
-                        <label for="visitSite" class="hidden"></label>
-                        <input type="submit" value="Visit Site" id="visitSite"/>
-                    </form>
-                    <p>
-                        fuga adipisci veniam iste impedit magnam, laborum, 
-                    </p>
+            </form>
+            
+            <div class="expandContent">
+                <form action="https://www.google.com/">
+                    <label for="visitSite" class="hidden"></label>
+                    <input type="submit" value="Visit Site" id="visitSite"/>
+                </form>
+                <p>
+                    fuga adipisci veniam iste impedit magnam, laborum, 
+                </p>
 
                 </div>
-            </li>
-            <li>
-                Title <span class="title-span"> Title Here </span>
-                Rating <span class="rating-span">Rating Here</span>
-            </li>
-            <li>
-                    Title <span class="title-span"> Title Here </span>
-                    Rating <span class="rating-span">Rating Here</span>
-                </li>
-            </ul> 
+        </li>
+        <li>
+            Title <span class="title-span"> Title Here </span>
+            Rating <span class="rating-span">Rating Here</span>
+        </li>
+        <li>
+            Title <span class="title-span"> Title Here </span>
+            Rating <span class="rating-span">Rating Here</span>
+        </li>
+    </ul> 
   

@@ -1,7 +1,4 @@
- body{
-     background-color: gray;
- }
- /* * {
+* {
     box-sizing: border-box;
     font-family: 'Josefin Sans';
   }
@@ -9,6 +6,7 @@
   body{
       margin: 0;
       background-color: rgb(250, 252, 251);
+      padding: 0 10rem;
   }
 
   header {
@@ -16,7 +14,24 @@
       font-size: 2rem;
       font-weight: 800;
   }
-  .flex-container{
+
+  #bookmarkControls {
+      text-align: center;
+  }
+
+  .main{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 5rem;
+
+    background-color :white;
+    text-align: center;
+    
+
+}
+ /*
+  .main{
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -131,7 +146,7 @@
     flex-direction: row-reverse;
     margin: 0 auto;
     display: inline; 
-    /* display: inline-block;
+    display: inline-block;
     margin: 0 auto;
     width: 20rem;
     text-align: center; 

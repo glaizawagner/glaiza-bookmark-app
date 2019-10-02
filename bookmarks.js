@@ -11,17 +11,17 @@ const generateBookmarksElement = function(bookmark) {
   let bookmarkTitle = `<span class="rating-span"> ${bookmark.rating} </span>`;
   console.log(bookmark.expanded);
   if(bookmark.expanded) {
-    bookmarkTitle =  `<button type="submit" class="delete-btn">>
+    bookmarkTitle =  `<button class="delete-btn">
       <span class="delete-btn-label"> Delete </span>
     </button>`;
     bookmarkExpandView = `
-      <div class="expandContent">
-        <button class="visit-btn">>
+      <div class = "expandContent">
+        <button class="visit-btn">
         <span class="visit-btn-label"> Visit Site </span>
         </button>
 
         <span class="rating-span"> ${bookmark.rating} </span>
-      <p> ${bookmark.desc} </p>
+        <p> ${bookmark.desc} </p>
       </div>
     `;
   }
@@ -30,8 +30,7 @@ const generateBookmarksElement = function(bookmark) {
    <li class = "bookmark-element" data-bookmark-id="${bookmark.id}">
      <span class="bookmark-item-title"> ${bookmark.title} ${bookmarkTitle} </span>
     ${bookmarkExpandView};
-    </li>
-  `;
+    </li>`;
   
 };
 
@@ -157,14 +156,6 @@ const handleBookmarkAdd = function() {
   });
 };
 
-/**
- * Handler for cancel button
- */
-
-
-/**
- * Handler for delete button
- */
 
 const handleDeleteBookmarkClicked = function() {
   //console.log('delete bookmark is working');

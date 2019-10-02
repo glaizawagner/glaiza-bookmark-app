@@ -6,8 +6,9 @@ const myData = {
 };
 
 
-const findById = function(id) {
-  return this.myData.booksmarks.find(currentItem => currentItem.id === id);
+const findById = function (id) {
+    return this.myData.bookmarks.find(currentItem => currentItem.id === id);
+
 };
   
 const addItem = function (newBookmark) {
@@ -21,7 +22,7 @@ const findAndDelete = function(id) {
 };
   
 const findAndUpdate = function(id, newData) {
-  let currentItem = this.myData.findById(id);
+  let currentItem = this.findById(id);
   Object.assign(currentItem, newData);
 };
   

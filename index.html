@@ -18,18 +18,15 @@
 </header>
 
 <main role = "main">
-
-    <!-- <<form id="bookmarkControls"> -->
-            <button type="submit" class="btn btn-new-bookmark" ><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
-                <select class= "filterByRating"><i class="fas fa-caret-down"></i> 
-                    <option selected disabled>Filter By:</option>
-                    <option value=5>5 stars</option>
-                    <option value=4>4 stars</option> 
-                    <option value=3>3 stars</option> 
-                    <option value=2>2 stars</option> 
-                    <option value=1>1 star</option> 
-                </select>
-    <!-- </form> -->
+    <button type="submit" class="btn btn-new-bookmark" ><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
+        <select class= "filterByRating" name ="filterByRating">
+            <option selected disabled>Filter By:</option>
+            <option value=5>5 stars</option>
+            <option value=4>4 stars</option> 
+            <option value=3>3 stars</option> 
+            <option value=2>2 stars</option> 
+            <option value=1>1 star</option> 
+        </select>
         <form class = "displayBookmarkForm" ></form>
         <ul class = "bookmarks-list-results" ></ul>
 

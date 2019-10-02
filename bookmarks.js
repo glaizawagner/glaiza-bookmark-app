@@ -6,31 +6,39 @@ import store from './store.js';
 
 
 const generateBookmarksElement = function(bookmark) {
-
   let bookmarkExpandView = ``;
-  let bookmarkTitle = `<span class="rating-span"> ${bookmark.rating} </span>`;
-  console.log(bookmark.expanded);
-  if(bookmark.expanded) {
-    bookmarkTitle =  `<button class="delete-btn">
-      <span class="delete-btn-label"> Delete </span>
-    </button>`;
-    bookmarkExpandView = `
-      <div class = "expandContent">
-        <button class="visit-btn">
-        <span class="visit-btn-label"> Visit Site </span>
-        </button>
+  let bookmarkTitle = `<span class="rating-span"> ${bookmark.rating} </span>`;;
 
-        <span class="rating-span"> ${bookmark.rating} </span>
-        <p> ${bookmark.desc} </p>
-      </div>
-    `;
-  }
+if(store.rating >= store.filter){
 
+    if(bookmark.expanded) {
+      bookmarkTitle =  `<button class="delete-btn">
+        <span class="delete-btn-label"> Delete </span>
+      </button>`;
+      bookmarkExpandView = `
+        <div class = "expandContent">
+          <button class="visit-btn">
+          <span class="visit-btn-label"> Visit Site </span>
+          </button>
+
+          <span class="rating-span"> ${bookmark.rating} </span>
+          <p> ${bookmark.desc} </p>
+        </div>
+      `;
+    }
+
+    return `
+    <li class = "bookmark-element" data-bookmark-id="${bookmark.id}">
+      <span class="bookmark-item-title"> ${bookmark.title} ${bookmarkTitle} </span>
+      ${bookmarkExpandView};
+      </li>`;
+} else {
   return `
-   <li class = "bookmark-element" data-bookmark-id="${bookmark.id}">
-     <span class="bookmark-item-title"> ${bookmark.title} ${bookmarkTitle} </span>
+    <li class = "bookmark-element" data-bookmark-id="${bookmark.id}">
+   <span class="bookmark-item-title"> ${bookmark.title} ${bookmarkTitle} </span>
     ${bookmarkExpandView};
     </li>`;
+}
   
 };
 
@@ -62,8 +70,8 @@ const render = function() {
         </div>
 
         <div>
-            <label for= "addBookmarkRating">Rating(s):</label>
-            <select class= "addBookmarkRating" name="addBookmarkRating">
+            <label for= "filterByRating">Rating(s):</label>
+            <select class= "filterByRating" name="filterByRating">
                 <option selected disabled>Select Ratings</option>
                 <option value=5>5 stars</option>
                 <option value=4>4 stars</option> 
@@ -119,8 +127,7 @@ const getElementID = function(item) {
 
 const handleBookmarkClicked = function () {
   $('.bookmarks-list-results').on('click','.bookmark-item-title', event => {
-    console.log(event.currentTraget);
-    const id = getElementID(event.currentTraget);
+    const id = getElementID(event.currentTarget);
     console.log(id);
     const item = store.findById(id);
     console.log(item);
@@ -158,33 +165,41 @@ const handleBookmarkAdd = function() {
 
 
 const handleDeleteBookmarkClicked = function() {
-  //console.log('delete bookmark is working');
+  $('.bookmarks-list-results').on('click', '.delete-btn', () => {
+    const id = getElementID(event.currentTarget);
+    console.log(`delete bookmark is working ${id}`);
+    api.deleteBookmarks(id)
+    .then(() => {
+      store.findAndDelete(id);
+      render();
+    })
+    .catch((error) => store.setError(error.message));
+  });
+  
 };
-/**
- * Handler for condensing/expanding bookmar
- */
-const handleToggleExpandedBookmarkView = function() {
-  // $('li').click(function() {
-  //console.log('li is working');
-  //   if ($(this).find('.hidden').hasClass('expanded')) {
-  //     $(this).find('.hidden').removeClass('expanded');
-  //   } else {
-  //     $(this).find('.hidden').addClass('expanded');
-  //   }
-  // });
-};
+
 
 /**
  * Handler for filter selection
  */
 
+ const filterBookmarkList = function () {
+  const filterRatingsVal = store.myData.filter;
+  const filteredItems = store.myData.bookmarks.filter(item => item.rating >= filterRatingsVal);
+  //$('.bookmarks-list-results').html('');
+  filteredItems.forEach(item => generateBookmarksElement(item));
+ };
+
 const handleFilterRatingsDropdown = function() {
-  $('.filterByRating').on('change', event => {
-      store.filter = $(event.currentTraget).val();
-      console.log(store.filter);
-      render();
+  $('.filterByRating').change( function() {
+    const filterValue = $(this).val();
+    store.myData.filter = filterValue;
+    console.log(` store filter ${store.myData.filter }`);
+    //filterBookmarkList();
+    render();
   });
 };
+
 
 /**
  * Event Listener Handlers
@@ -195,7 +210,6 @@ const bindEventListeners = function() {
   handleBookmarkAdd();
   handleCancelBtn();
   handleDeleteBookmarkClicked();
-  handleToggleExpandedBookmarkView();
   handleFilterRatingsDropdown();
 };
 

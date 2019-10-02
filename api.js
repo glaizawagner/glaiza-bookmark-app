@@ -23,11 +23,11 @@ function listApiFetch(...args) {
 
 }
 
-const getAllBookmarks = function() {
+const getAllBookmarks = function () {
   return listApiFetch(`${BASE_URL}`);
 };
 
-const createBookmarks = function(bookmark) {
+const createBookmarks = function (bookmark) {
   const newBookmark = JSON.stringify(bookmark); 
   return listApiFetch(`${BASE_URL}`, {
     method: 'POST',
@@ -36,7 +36,7 @@ const createBookmarks = function(bookmark) {
   });
 };
 
-const updateBookmarks = function(id, updateData) {
+const updateBookmarks = function (id, updateData) {
   const newData = JSON.stringify(updateData);
   return listApiFetch(`${BASE_URL}/${id}`, {
     method: 'PATCH',
@@ -45,8 +45,8 @@ const updateBookmarks = function(id, updateData) {
   });
 };
 
-const deleteBookmarks = function(id) {
-  return listApiFetch(`${BASE_URL} + '/' + ${id}`, {
+const deleteBookmarks = function (id) {
+  return listApiFetch(BASE_URL + '/' + id, {
     method: 'DELETE'
   });
 };

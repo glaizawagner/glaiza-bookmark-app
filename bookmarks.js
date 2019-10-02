@@ -1,4 +1,4 @@
-import api from './api.js'
+import api from './api.js';
 import store from './store.js';
 
 
@@ -7,14 +7,14 @@ import store from './store.js';
  * Will render the page by calling to the api server to get the list of bookmarks 
  * and render the page with the list of bookmarks
  */
-const generateBookmarkElement = function(bookmark) {
+// const generateBookmarkElement = function(bookmark) {
 
-};
+// };
 
-const generateBookmarkString = function(itemList) {
-  const items = itemList.map(item => generateBookmarkElement(item));
-  return items.join();
-};
+// const generateBookmarkString = function(itemList) {
+//   const items = itemList.map(item => generateBookmarkElement(item));
+//   return items.join();
+// };
 
 const render = function() {
   $('.bookmarks-list-results').html('');
@@ -55,7 +55,8 @@ const render = function() {
 const handleNewBookmarkSubmit= function() {
   $('.bookmarkControls').submit( function () {
     event.preventDefault();
-    $('.display').html(`
+    
+    $('.displayBookmarkForm').html(`
         <form id="bookmark-list-form">
                 
         <fieldset class="bookmarkDetails">
@@ -93,10 +94,10 @@ const handleNewBookmarkSubmit= function() {
 
 </fieldset>
 </form>
-        `)
-  })
-  console.log('new bookmark is working');
-}
+        `);
+  });
+  console.log('handel new book mark is working;');
+};
 
 /**
  * Handler for add bookmark clicked
@@ -113,8 +114,8 @@ const handleCancelBtn = function() {
   $('.bookmark-btn-cancel').on('click', () => {
     store.toggleAdding();
     render();
-  })
-}
+  });
+};
 
 
 /**
@@ -125,6 +126,16 @@ const handleDeleteBookmarkClicked = function() {
   console.log('delete bookmark is working');
 };
 
+/**
+ * Serialize Json
+ */
+
+ function serializeJson(form){
+     const formData = new FormData(form);
+     const obj = {};
+     formData.forEach((val, name) => obj[name] = val);
+     return JSON.stringify(obj);
+ }
 /**
  * Handler for condensing/expanding bookmar
  */

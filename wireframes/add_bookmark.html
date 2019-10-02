@@ -1,0 +1,37 @@
+<form id="bookmark-list-form">
+                
+    <fieldset class="bookmarkDetails">
+        <Legend>Create a Bookmark</Legend>
+        <div>
+                <label for="bookmark-title-input">Title :</label>
+                <input type = "text" class="bookmark-title-input" name="bookmark-title-input" placeholder="Enter  title here" required>
+        </div>
+        <div>
+                <label for=""bookmark-url">URL :</label>
+                <input type = "url" class="bookmark-url" name="bookmark-url" placeholder="https://www.google.com/" required>
+        </div>
+
+        <div>
+            <label for= "addBookmarkRating">Rating(s):</label>
+            <select id= "addBookmarkRating" name="rating" required>
+            <option selected disabled>Select Ratings</option>
+            <option value=5>5 stars</option>
+            <option value=4>4 stars</option> 
+            <option value=3>3 stars</option> 
+            <option value=2>2 stars</option> 
+            <option value=1>1 star</option> 
+            </select>       
+        </div> 
+
+<label for="addBookmarkDescription">Description</label>
+<textarea class="addBookmarkDescription name = "description" >
+    Description (optional)
+</textarea>
+
+<div >
+    <button type="submit class="bookmark-btn-create">Create</button>
+    <button type="button class="bookmark-btn-cancel" >Cancel</button>
+</div>
+
+</fieldset>
+</form>

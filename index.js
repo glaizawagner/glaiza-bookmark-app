@@ -5,11 +5,12 @@ import api from './api.js';
 
 const main = function() {
   api.getAllBookmarks()
-    .then(items) => {
-      items.forEach(item => { store.addItem(item);
-        console.log(items, 'test');
-        bookmarks.render();
-      });
+    .then(res => res.json())
+    .then(items => {
+      items.forEach(item => store.addItem(item));
+      console.log(items, 'api in index.js');
+      bookmarks.render();
+    });
   bookmarks.bindEventListeners();
   bookmarks.render();
 };

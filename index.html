@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,400i|Nunito:300,300i" rel="stylesheet">
     <link href="index.css" rel="stylesheet" type="text/css">
-    
+
 </head>
 <body>
 <header class="row-header" role="banner">
@@ -19,7 +19,7 @@
 
 <main role = "main">
     
-    <form class="bookmarkControls">
+    <form id="bookmarkControls">
             <button type="button" name="btn btn-new-bookmark" class="btn btn-new-bookmark" value="New"><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
                 </button> 
                     <select class= "filterByRating"><i class="fas fa-caret-down"></i> 
@@ -30,10 +30,9 @@
                         <option value=2>2 stars</option> 
                         <option value=1>1 star</option> 
                     </select>
-            </form>
-            </form>
-            <section class="displayBookmarkForm"></section>
-            <ul class ="bookmarks-list-results"></ul>
+    </form>
+        <section class="displayBookmarkForm"></section>
+        <ul class ="bookmarks-list-results"></ul>
 </main>
 
 <script

@@ -1,71 +1,56 @@
+/* eslint-disable no-unreachable */
 /* eslint-disable no-console */
 import api from './api.js';
 import store from './store.js';
 
 
 
+const generateBookmarksElement = function(bookmark) {
 
-const createStoreBookmarkListForStore = function(item) {
-  $('.bookmarks-list-results').append(`
-  <li id=${item.id}>
-  <div class="title-rating">
-  Title <span class="title-span"> ${item.title} </span>
-  Rating <span class="rating-span"> ${item.rating}</span>
-  </div>
-  <form class="delete-btn">
-      <button type="submit">Delete Bookmark?</button>
-  </form>
-  
-  <div class="expandContent hidden">
-      <form action="${item.url}" target="_blank">
-          <label for="visitSite" class="hidden"></label>
-          <input type="submit" value="Visit Site" id="visitSite"/>
-      </form>
-      <p>
-        ${item.desc}
-      </p>
+  let bookmarkExpandView = '';
+  let bookmarkTitle = `<span class="rating-span"> ${bookmark.rating} </span>`;
+  console.log(bookmark.expanded);
+  if(bookmark.expanded) {
+    bookmarkTitle =  `<button type="submit" class="delete-btn">>
+      <span class="delete-btn-label"> Delete </span>
+    </button>`;
+    bookmarkExpandView = `
+      <div class="expandContent">
+        <button class="visit-btn">>
+        <span class="visit-btn-label"> Visit Swite </span>
+        </button>
 
+        <span class="rating-span"> ${bookmark.rating} </span>
+      <p> ${bookmark.desc} </p>
       </div>
-</li>
-`
-  );
+    `;
+  }
 
-  console.log('generate bookmark list');
+  return `
+   <li class="bookmark-element" data-bookmark-id="${bookmark.id}">
+    <span class="bookmark-item"> ${bookmark.title} ${bookmarkTitle} </span>
+    ${bookmarkExpandView};
+    </li>
+  `;
+  
 };
 
-
-const initializeBookmarkListforStore = function(data) {
-  Object.assign(store.myData.bookmarks, data);
+const generateBookmarksString = function (mybookmark) {
+   const items = mybookmark.map((item) => generateBookmarksElement(item));
+   return items.join('');
 };
+
 
 const render = function() {
 
+  let form = '';
   store.myData.filter = 0;
 
-  $('.bookmarks-list-results').html('');
+ console.log(store.myData.addin);
+  let items = [...store.myData.bookmarks];
 
-  api.getAllBookmarks()
-    .then( data => {
-      data.forEach(item => createStoreBookmarkListForStore(item));
-      initializeBookmarkListforStore(data);
-      console.log(`render is working ${data}`);
-    })
-    .catch(error => {
-      console.log(`Error message in render ${error}`);
-    });
-  //console.log(`render is working`);
-};
-
-
-/**
- * Handler for new bookmark clicked
- */
-const handleNewBookmarkSubmit= function() {
-  $('#bookmarkControls').submit( function () {
-    event.preventDefault();
-    
-    $('.displayBookmarkForm').html(`
-    <form id="addNewbookmarkform">
+  if(store.myData.addin) {
+         form = `
     <fieldset class="bookmarkDetails">
         <Legend>Create a Bookmark</Legend>
         <div>
@@ -79,7 +64,7 @@ const handleNewBookmarkSubmit= function() {
 
         <div>
             <label for= "addBookmarkRating">Rating(s):</label>
-            <select class= "addBookmarkRating" name="addBookmarkRating" required>
+            <select class= "addBookmarkRating" name="addBookmarkRating">
                 <option selected disabled>Select Ratings</option>
                 <option value=5>5 stars</option>
                 <option value=4>4 stars</option> 
@@ -94,26 +79,35 @@ const handleNewBookmarkSubmit= function() {
             <textarea class="addBookmarkDescription name = "addBookmarkDescription" > Description (optional)</textarea>
         </div>
         
-        <button type="submit class="btn bookmark-btn-create">Create</button>
-        <button type="button class="btn bookmark-btn-cancel" >Cancel</button>
+        <button type="submit" class="btn bookmark-btn-create">Create</button>
+        <button type="button" class="btn bookmark-btn-cancel" >Cancel</button>
     </fieldset>
-</form>
-        `);
-    console.log('handel new bookmark is working;');
-  });
-  
+  `}
+
+  $('.displayBookmarkForm').html(form);
+    if(store.myData.addin) {
+      handleCancelBtn();
+    }
+  //rendering in the DOM 
+  const bookmarkListItemString = generateBookmarksString(items);
+
+  //Insert into the DOM
+  $('.bookmarks-list-results').html(bookmarkListItemString);
+ 
 };
 
-/**
- * Serialize Json
- */
 
-// function serializeJson(form){
-//   const formData = new FormData(form);
-//   const obj = {};
-//   formData.forEach((val, name) => obj[name] = val);
-//   return JSON.stringify(obj);
-// }
+/**
+ * Handler for new bookmark clicked
+ */
+const handleNewBookmarkSubmit= function() {
+  $('.btn-new-bookmark').on('click', function () {
+    //event.preventDefault();
+    console.log('handle new bookmark is working');
+    store.toggleAddingBookmark();
+    render();
+ });
+};
 
 const handleBookmarkAdd = function() {
   $('.displayBookmarkForm').submit(function(event){
@@ -128,46 +122,28 @@ const handleBookmarkAdd = function() {
     $('.bookmark-url').val('');
     $('.addBookmarkDescription').val();
 
-    const newBookmark = {newTitle, newUrl, newRating, newDesc};
-
-    //let formElement = ('.bookmark-btn-create')[0];
-    console.log(newBookmark);
+    const newBookmark = { title: newTitle, url: newUrl, rating: newRating, desc: newDesc};
 
     api.createBookmarks(newBookmark)
-      .then(res => res.json())
       .then( newItem => {
-        store.myData.addItem(newItem);
-        store.myData.toggleAddingBookmark();
+         store.addItem(newItem);
+         store.toggleAddingBookmark();
         render();
-      });
-    //.catch(error => console.log(error.messase));
+      })
+     .catch(error => {
+       store.setError(error.message);
+     });
   });
- 
-//   let formElement = $('.bookmark-btn-create')[0];
-//   api.createBookmarks(serializeJson(formElement))
-//     .then(res => res.json())
-//     .then(item => {
-//       console.log(item);
-//       store.addItem(item);
-//       store.toggleAddingBookmark();
-//       render();
-//     })
-//     .catch(err => console.log(err.message));
-// });
-
 };
 
 /**
  * Handler for cancel button
  */
 const handleCancelBtn = function() {
-  // $('main').on('click', '.bookmark-btn-cancel', function () {
-  //   event.preventDefault();
-  //   console.log('cancel button is working');
-  //   store.toggleAddingBookmark(false);
-  //   render();
-  // });
-
+  $('.bookmark-btn-cancel').on('click', function () {
+    store.toggleAddingBookmark();
+    render();
+  });
 };
 
 
@@ -176,19 +152,14 @@ const handleCancelBtn = function() {
  */
 
 const handleDeleteBookmarkClicked = function() {
-  console.log('delete bookmark is working');
+  //console.log('delete bookmark is working');
 };
-
-const handleCreateBookmarkSubmit = function () {
-
-};
-
 /**
  * Handler for condensing/expanding bookmar
  */
 const handleToggleExpandedBookmarkView = function() {
   // $('li').click(function() {
-  console.log('li is working');
+  //console.log('li is working');
   //   if ($(this).find('.hidden').hasClass('expanded')) {
   //     $(this).find('.hidden').removeClass('expanded');
   //   } else {
@@ -202,7 +173,11 @@ const handleToggleExpandedBookmarkView = function() {
  */
 
 const handleFilterRatingsDropdown = function() {
-  console.log('filter ratings is working');
+  $('.filterByRating').on('change', event => {
+      store.filter = $(event.currentTraget).val();
+      console.log(store.filter);
+      render();
+  });
 };
 
 /**
@@ -215,11 +190,10 @@ const bindEventListeners = function() {
   handleDeleteBookmarkClicked();
   handleToggleExpandedBookmarkView();
   handleFilterRatingsDropdown();
-  handleCreateBookmarkSubmit();
 };
-
 
 export default {
   bindEventListeners,
   render
 };
+

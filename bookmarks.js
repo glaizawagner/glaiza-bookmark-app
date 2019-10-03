@@ -4,11 +4,12 @@ import api from './api.js';
 import store from './store.js';
 
 
-
 const generateBookmarksElement = function(item) {
 
   
   let bookmarkExpandView = ``;
+  let hiddenClass = '';
+
   let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i> </span>`;
 
   if(item.expanded) {
@@ -27,14 +28,20 @@ const generateBookmarksElement = function(item) {
           <p> ${item.desc} </p>
         </div>
         `;
+  } 
+  if(store.filter > item.rating) {
+    console.log(`filter ${store.filter}`);
+    console.log(`item rating ${item.rating}`);
+    hiddenClass= 'class="hidden"';
   }
 
   return `
-    <li class = "bookmark-element"  data-bookmark-id="${item.id}">
-      <span class="bookmark-item-title"> ${item.title} ${bookmarkTitle} </span>
-      ${bookmarkExpandView}
-      </li>
-      `;
+  <li class = "bookmark-element "  data-bookmark-id="${item.id}">
+    <span class="bookmark-item-title ${hiddenClass}"> ${item.title} ${bookmarkTitle} </span>
+    ${bookmarkExpandView}
+    </li>
+    `;
+ 
 };
 
 const generateBookmarksString = function (mybookmark) {
@@ -46,12 +53,12 @@ const generateBookmarksString = function (mybookmark) {
 const render = function() {
 
   let form = ``;
-  store.myData.filter = 0;
+  //store.myData.filter = 0;
 
 
   let items = [...store.myData.bookmarks];
 
-  
+  //console.log(items);
 
   if(store.myData.adding) {
     form = `
@@ -94,9 +101,21 @@ const render = function() {
     handleCancelBtn();
   }
   
+  //added to  for filter
+  //console.log(store.filter);
+  if (store.filter >= 1) {
+    console.log(store.filter);
+    items = items.filter(bookmark => bookmark.rating >= store.myData.filter);
+    console.log(items);
+    // const bookmarkListItemStringFilter = generateBookmarksString(items);
+    // //console.log(`filter ${bookmarkListItemStringFilter}`);
+    // $('.bookmarks-list-results').html(bookmarkListItemStringFilter);
+
+  }
+
   const bookmarkListItemString = generateBookmarksString(items);
 
-  //Insert into the DOM
+
   $('.bookmarks-list-results').html(bookmarkListItemString);
  
 };
@@ -137,7 +156,9 @@ const handleBookmarkAdd = function() {
 
     const newTitle = $('.bookmark-title-input').val();
     const newUrl = $('.bookmark-url').val();
-    const newRating = $('.AddFilterByRating').val();
+    const newRating = parseInt($('.AddFilterByRating').val());
+    console.log(typeof newRating);
+    console.log(newRating);
     const newDesc = $('.addBookmarkDescription').val();
 
     $('.bookmark-title-input').val('');
@@ -175,10 +196,10 @@ const handleDeleteBookmarkClicked = function() {
 
 const handleFilterRatingsDropdown = function () {
   $('.container').on('change', '.filter', function () {
-    store.myData.filter = 1;
-    let filter = $(this).val();
+    let filter = parseInt($(this).val(), 10);
+    console.log(typeof filter);
     store.filterBookmarks(filter);
-    //render();
+    render();
   });
 };
 

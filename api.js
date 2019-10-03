@@ -2,20 +2,24 @@
 const BASE_URL = 'https://thinkful-list-api.herokuapp.com/glaiza/bookmarks';
 
 function listApiFetch(...args) {
-  let error;
+  let err;
   return fetch(...args)
     .then(res => {
       if (!res.ok) {
-        error = { code: res.status };
+        err = { code: res.status };
+        if(!res.headers.get('conent-type').includes('json')) {
+          err.message = res.statusText;
+          return Promise.reject(err);
+        }
       }
 
       return res.json();
     })
 
     .then(data => {
-      if (error) {
-        error.message = data.message;
-        return Promise.reject(error);
+      if (err) {
+        err.message = data.message;
+        return Promise.reject(err);
       }
 
       return data;

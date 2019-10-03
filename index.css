@@ -186,6 +186,11 @@ p {
     margin-left: 1rem;
 
 }
+
+.hiddenClass {
+    display: none;
+}
+
 /* addBookmarkDescription {
     vertical-align: middle; */
     /* font-size: .8rem;

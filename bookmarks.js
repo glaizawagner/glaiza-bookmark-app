@@ -1,12 +1,10 @@
 /* eslint-disable no-unreachable */
-/* eslint-disable no-console */
 import api from './api.js';
 import store from './store.js';
 
 
 const generateBookmarksElement = function(item) {
 
-  
   let bookmarkExpandView = ``;
   let hiddenClass = '';
 
@@ -29,30 +27,6 @@ const generateBookmarksElement = function(item) {
         </div>
         `;
   } 
-  // console.log(store.filter);
-  // console.log(item.rating);
-
-  // if(store.filter === store.rating){
-  //   console.log('equal');
-  //     // return ` <li class = "bookmark-element "  data-bookmark-id="${item.id}">
-  //     //   <span class="bookmark-item-title ${hiddenClass}"> ${item.title} ${bookmarkTitle} </span>
-  //     //   ${bookmarkExpandView}
-  //     //   </li>
-  //     // `;
-  // } else {
-  //   // alert('no filter for that record');
-  // }
-
-
-  // // if(store.filter === store.myData.bookmarks.rating){
-  // //   console.log('they are equal');
-  // //   return `
-  // //      <li class = "bookmark-element "  data-bookmark-id="${item.id}">
-  // //     <span class="bookmark-item-title ${hiddenClass}"> ${item.title} ${bookmarkTitle} </span>
-  // //     ${bookmarkExpandView}
-  // //     </li>
-  // //     `;
-  // // } 
 
   return `
     <li class = "bookmark-element "  data-bookmark-id="${item.id}">
@@ -60,7 +34,6 @@ const generateBookmarksElement = function(item) {
       ${bookmarkExpandView}
       </li>
       `;
- 
 };
 
 const generateBookmarksString = function (mybookmark) {
@@ -119,16 +92,6 @@ const render = function() {
     handleCancelBtn();
   }
   
-  if(store.filter){
-    $('.bookmarks-list-results').html('');
-    console.log(store.filter);
-    const bookmarkFilter = generateBookmarksString(items);
-    console.log(bookmarkFilter);
-    $('.bookmarks-list-results').html(bookmarkFilter);
-
-  
-  }
-  
   const bookmarkListItemString = generateBookmarksString(items);
 
   $('.bookmarks-list-results').html(bookmarkListItemString);
@@ -174,8 +137,6 @@ const handleBookmarkAdd = function() {
     const newRating = parseInt($('.AddFilterByRating').val());
     let newDesc = $('.addBookmarkDescription').val();
 
-    console.log(newDesc);
-
     $('.bookmark-title-input').val('');
     $('.bookmark-url').val('');
     $('.addBookmarkDescription').val('');
@@ -195,7 +156,6 @@ const handleBookmarkAdd = function() {
   });
 };
 
-
 const handleDeleteBookmarkClicked = function() {
   $('.bookmarks-list-results').on('click', '.delete-btn', event => {
     const id = getElementID(event.currentTarget);
@@ -208,44 +168,6 @@ const handleDeleteBookmarkClicked = function() {
   });
   
 };
-// const createFilteredBookmarkListHTML = function(item) {
-//   $('.bookmarks-list-results').append(`
-//   <li id= "${item.id}">
-//     <form class= "expandElementButton">
-//       <button type="submit" class="titleAndRatingButton" aria-expanded="false"> 
-//         <div class="titleAndRating">
-//           <div class= "title"> 
-//             Title:<span class= "js-titleSpan"> ${item.title}</span>
-//           </div>
-//           <div class = "rating">
-//             Rating:<span class= "js-ratingSpan">${item.rating} Stars</span>
-//           </div>
-//         </div>
-//       </button>
-//     </form>
-//     <div class= "js-expandContent ${item.expanded ? '' : 'hidden'}" aria-live='polite'>
-//       <form action= "${item.url}" target="_blank">
-//         <label for= "visitSite" class="hidden">Visit Site</label>
-//         <input class= "visitSiteButton" type="submit" value="Visit Site" id= "visitSite"/>
-//       </form>
-//       <p>${item.desc}</p>
-//       <form class= "js-DeleteButton">
-//         <button type= "submit" class="deleteBookmarkButton">Delete Bookmark?</button>
-//       </form>
-//     </div>
-//   </li>
-//   `);
-
-// }
-
-// const filterBookmarkList = function () {
-//   const filterRatingsValue = store.myData.filter;
-//   const filteredItems = store.myData.bookmarks.filter(item => item.rating >= filterRatingsValue);
-//   $('.bookmarks-list-results').html('');
-
-//   filteredItems.forEach(item => createFilteredBookmarkListHTML(item));
-//   $('.bookmarks-list-results').html(filteredItems);
-// };
 
 const handleFilterRatingsDropdown = function () {
   $('.container').on('change', '.filter', function () {

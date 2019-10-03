@@ -103,13 +103,13 @@ textarea {
     margin-bottom: .9rem;
 } 
 .bookmark-btn-create, .bookmark-btn-cancel {
-    padding: 4px 4px;
+    padding: .5rem .5rem;
     margin-left: 2rem;
-    font-size: 1rem;
+    font-size: .8rem;
 }
 
 .bookmark-btn-create {
-    margin-left: 3rem;
+    margin-left: 4rem;
     margin-right: 2rem;
 }
 
@@ -134,13 +134,21 @@ li{
     text-align: left;
 } 
 
+.bookmark-item-title {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
 
 .expandContent {
     display: flex;
     justify-content: center; 
     margin-left: 1rem;
     margin-top: 1rem;
+    margin-bottom: 1rem;
     width: 20rem;
+    
 }
 
 .visit-btn {

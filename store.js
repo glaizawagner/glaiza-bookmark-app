@@ -25,7 +25,11 @@ const findAndUpdate = function(id, newData) {
   let currentItem = this.findById(id);
   Object.assign(currentItem, newData);
 };
-  
+
+function filterBookmarks(num) {
+  this.filter = num;
+}
+
 const toggleAddingBookmark = function() {
   this.myData.adding = !this.myData.adding;
 };
@@ -41,6 +45,7 @@ export default {
   myData,
   findById,
   addItem,
+  filterBookmarks,
   findAndDelete,
   findAndUpdate,
   toggleAddingBookmark,

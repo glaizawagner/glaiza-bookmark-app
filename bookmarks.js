@@ -9,12 +9,13 @@ const generateBookmarksElement = function(item) {
 
   
   let bookmarkExpandView = ``;
-  let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i></span>`;
+  let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i> </span>`;
 
   if(item.expanded) {
     bookmarkTitle =  `<button class="delete-btn">
         <span class="delete-btn-label"> <i class="far fa-trash-alt"></i> </span>
-      </button>`;
+      </button>
+      `;
 
     bookmarkExpandView = `
         <div class = "expandContent">
@@ -24,14 +25,16 @@ const generateBookmarksElement = function(item) {
 
           <span class="rating-span"> ${item.rating}<i class="far fa-star"></i> </span>
           <p> ${item.desc} </p>
-        </div>`;
+        </div>
+        `;
   }
 
   return `
     <li class = "bookmark-element"  data-bookmark-id="${item.id}">
       <span class="bookmark-item-title"> ${item.title} ${bookmarkTitle} </span>
-      ${bookmarkExpandView};
-      </li>`;
+      ${bookmarkExpandView}
+      </li>
+      `;
 };
 
 const generateBookmarksString = function (mybookmark) {

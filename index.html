@@ -18,19 +18,19 @@
 </header>
 
 <main role = "main">
-    <button type="submit" class="btn btn-new-bookmark" ><i class="fas fa-plus"></i> New Bookmark <i class="far fa-bookmark"></i></button>
-        <select class= "filter" name ="filter">
-            <option selected disabled>Filter By:</option>
-            <option value=5>★★★★★</option>
-            <option value=4>★★★★☆</option> 
-            <option value=3>★★★☆☆</option> 
-            <option value=2>★★☆☆☆</option> 
-            <option value=1>★☆☆☆☆</option> 
-        </select>
+    <div class= 'container'>
+        <button type="submit" class="btn btn-new-bookmark">Create New Bookmark</button>
+            <select class= "filter" name ="filter">
+                <option selected disabled>Filter By:</option>
+                <option value=5>★★★★★</option>
+                <option value=4>★★★★☆</option> 
+                <option value=3>★★★☆☆</option> 
+                <option value=2>★★☆☆☆</option> 
+                <option value=1>★☆☆☆☆</option> 
+            </select>
         <form class = "displayBookmarkForm" ></form>
         <ul class = "bookmarks-list-results" ></ul>
-
-
+    </div>
 </main>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>

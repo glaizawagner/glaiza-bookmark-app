@@ -11,23 +11,23 @@ const generateBookmarksElement = function(item) {
   let bookmarkExpandView = ``;
   let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i></span>`;
 
-    if(item.expanded) {
-      bookmarkTitle =  `<button class="delete-btn">
+  if(item.expanded) {
+    bookmarkTitle =  `<button class="delete-btn">
         <span class="delete-btn-label"> <i class="far fa-trash-alt"></i> </span>
       </button>`;
 
-      bookmarkExpandView = `
+    bookmarkExpandView = `
         <div class = "expandContent">
-          <button class="visit-btn">
-          <span class="visit-btn-label"> <a href="${item.url}"> ${item.url}</a></span>
+          <button class="visit-btn"> 
+          <span class="visit-btn-label"> <a href="${item.url}"> Visit Site </a></span>
           </button>
 
           <span class="rating-span"> ${item.rating}<i class="far fa-star"></i> </span>
           <p> ${item.desc} </p>
         </div>`;
-    }
+  }
 
-    return `
+  return `
     <li class = "bookmark-element"  data-bookmark-id="${item.id}">
       <span class="bookmark-item-title"> ${item.title} ${bookmarkTitle} </span>
       ${bookmarkExpandView};
@@ -35,8 +35,8 @@ const generateBookmarksElement = function(item) {
 };
 
 const generateBookmarksString = function (mybookmark) {
-   const items = mybookmark.map((item) => generateBookmarksElement(item));
-   return items.join('');
+  const items = mybookmark.map((item) => generateBookmarksElement(item));
+  return items.join('');
 };
 
 
@@ -51,15 +51,15 @@ const render = function() {
   
 
   if(store.myData.adding) {
-         form = `
+    form = `
     <fieldset class="bookmarkDetails">
-        <Legend>Create a Bookmark</Legend>
+        <Legend>Adding New Bookmark</Legend>
         <div>
-                <label for="bookmark-title-input">Title :</label>
+                <label for="bookmark-title-input" class="inputAndTitle">Title :</label>
                 <input type = "text" class="bookmark-title-input" name="bookmark-title-input" placeholder="Enter  title here" required/>
         </div>
         <div>
-                <label for=""bookmark-url">URL :</label>
+                <label for=""bookmark-url" class="inputAndTitle">URL :</label>
                 <input type = "url" class="bookmark-url" name="bookmark-url" placeholder="https://www.google.com/" required/>
         </div>
         
@@ -75,9 +75,10 @@ const render = function() {
         </select>       
       </div> 
 
-        <div>
-            <label for="addBookmarkDescription">Description</label>
-            <textarea class="addBookmarkDescription name = "addBookmarkDescription" > Description (optional)</textarea>
+        <div class="AddBookmarkdesc">
+          <label class="desc-label" for="addBookmarkDescription">Description</label>
+          <textarea class="addBookmarkDescription" name = "addBookmarkDescription" rows = 5 > Description (optional)</textarea>
+           
         </div>
         
         <button type="submit" class="btn bookmark-btn-create">Create</button>
@@ -86,9 +87,9 @@ const render = function() {
   }
 
   $('.displayBookmarkForm').html(form);
-    if(store.myData.adding) {
-      handleCancelBtn();
-    }
+  if(store.myData.adding) {
+    handleCancelBtn();
+  }
   
   const bookmarkListItemString = generateBookmarksString(items);
 
@@ -102,7 +103,7 @@ const handleNewBookmarkSubmit= function() {
   $('.btn-new-bookmark').on('click', function () {
     store.toggleAddingBookmark();
     render();
- });
+  });
 };
 
 const handleCancelBtn = function() {
@@ -114,8 +115,8 @@ const handleCancelBtn = function() {
 
 const getElementID = function(item) {
   return $(item)
-      .closest('.bookmark-element')
-      .data('bookmark-id');
+    .closest('.bookmark-element')
+    .data('bookmark-id');
 };
 
 const handleBookmarkClicked = function () {
@@ -144,14 +145,14 @@ const handleBookmarkAdd = function() {
 
     api.createBookmarks(newBookmark)
       .then( newItem => {
-         store.addItem(newItem);
-         store.toggleAddingBookmark();
+        store.addItem(newItem);
+        store.toggleAddingBookmark();
         render();
       })
-     .catch(error => {
-       store.setError(error.message);
-       render();
-     });
+      .catch(error => {
+        store.setError(error.message);
+        render();
+      });
   });
 };
 
@@ -159,14 +160,12 @@ const handleBookmarkAdd = function() {
 const handleDeleteBookmarkClicked = function() {
   $('.bookmarks-list-results').on('click', '.delete-btn', event => {
     const id = getElementID(event.currentTarget);
-    console.log(id);
-    console.log(`delete bookmark is working ${id}`);
     api.deleteBookmarks(id)
-    .then(() => {
-      store.findAndDelete(id);
-      render();
-    })
-    .catch((error) => store.setError(error.message));
+      .then(() => {
+        store.findAndDelete(id);
+        render();
+      })
+      .catch((error) => store.setError(error.message));
   });
   
 };

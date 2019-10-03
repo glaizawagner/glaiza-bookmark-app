@@ -5,7 +5,6 @@
 
   body{
       margin: 0;
-      background-color: rgb(250, 252, 251);
       padding: 0 10rem;
   }
 
@@ -15,59 +14,177 @@
       font-weight: 800;
   }
 
-  #bookmarkControls {
-      text-align: center;
+  .container {
+      background-color: rgb(237, 242, 239);
+      border-radius: 5px;
+      padding: 2rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
   }
 
-  .main{
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin: 4rem;
 
-    background-color :white;
-    text-align: center;
-    
-
-}
 .btn-new-bookmark {
-    width: 25%;
-    padding: .2rem 1rem;
+    width: 35%;
+    background-color: rgb(26, 24, 24);
+    flex-direction: center;
     font-size: .7rem;
     font-weight: 400;
+    height: 2rem;
+    margin-bottom: 1rem;
  }
 
- .btn-new-bookmark {
-     margin-right: 2rem;
+ .filter{
+    height: 2rem;
+    width: 35%;
+    margin-bottom: 1rem;
  }
-
  .btn:not(.btn-delete-bookmark){
-    background-color: #008B8B;
-    color: white;
+    background-color: rgb(237, 242, 239);
+    color: black;
     border-radius: .5rem;
-    border: 2px solid lightgray;
+    border: 2px solid gray;
     
     text-transform: uppercase;
     cursor: pointer;
  }
 
  .btn:hover {
-    background-color: #1C2833;
-    border: 1px solid #7FFFD4;
+    background-color: lightgray;
+    border: 1px solid black;
  }
 
- /*
-  .main{
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      margin: 5rem;
+ .flex-container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 5rem;
 
-      background-color :white;
-      text-align: center;
-     
+    background-color :gray;
+    text-align: center;
+   
 
-  }
+}
+
+.bookmarkDetails {
+ height: 17rem;
+ width: 25rem;
+ padding: 1.5rem 1.5rem;
+ border: 2px solid gray;
+ border-radius: 1rem;;
+}
+
+input, label {
+    font-family: 'Josefin Sans';
+    font-size: 1rem;
+}
+
+.inputAndTitle {
+    margin-right: 2rem;
+}
+
+input {
+    width: 13rem;
+    margin-bottom: .5rem;
+}
+
+.AddFilterByRating {
+    width: 13rem;
+    height: 2rem;
+    margin-bottom: .5rem;
+    margin-right: 1rem;
+}
+
+textarea {
+    vertical-align: top;
+    width: 12rem;
+    height: 4rem; 
+    margin-bottom: .9rem;
+} 
+.bookmark-btn-create, .bookmark-btn-cancel {
+    padding: 4px 4px;
+    margin-left: 2rem;
+    font-size: 1rem;
+}
+
+.bookmark-btn-create {
+    margin-left: 3rem;
+    margin-right: 2rem;
+}
+
+li{
+    display: inline;;
+    list-style: none;
+    text-align: center;
+}
+
+.bookmark-element,.expandContent {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    border-radius: 3px;
+    border: 2px solid gray;
+    padding-top: .5rem;
+    margin-top: .5rem;
+    border-radius: 5px;
+    width:  22rem;
+    font-size: 1rem;
+    text-transform: uppercase;
+    text-align: left;
+} 
+
+
+.expandContent {
+    display: flex;
+    justify-content: center; 
+    margin-left: 1rem;
+    margin-top: 1rem;
+    width: 20rem;
+}
+
+.visit-btn {
+    margin-left: 3rem;
+    margin-bottom: .3rem;
+    width: 12rem;
+    height: 2rem;
+    font-size: 1rem;
+}
+
+.delete-btn {
+    background-color: transparent;
+    
+    border: none;
+    font-size: 1rem;
+}
+.rating-span {
+    display: inline;
+    text-align: center;
+    font-size: 1rem;
+}
+
+p {
+    text-transform: capitalize;
+    font-size: 1rem;
+    margin-left: 1rem;
+
+}
+/* addBookmarkDescription {
+    vertical-align: middle; */
+    /* font-size: .8rem;
+    /* width: 10rem;
+    height: 4rem; */
+    /* margin-bottom: 1rem;   *
+}
+/* .desc-label {
+   text-align: center;
+}
+
+.textarea {
+    vertical-align: top;
+} 
+
+ 
 
   .btn:not(.btn-delete-bookmark){
     background-color: #008B8B;

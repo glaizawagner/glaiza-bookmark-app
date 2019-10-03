@@ -27,22 +27,24 @@
 
 .btn-new-bookmark {
     width: 35%;
-    background-color: rgb(26, 24, 24);
     flex-direction: center;
-    font-size: .7rem;
+    font-size: 1rem;
     font-weight: 400;
     height: 2rem;
     margin-bottom: 1rem;
+    padding-top: .2rem;
  }
 
  .filter{
+     font-size: 1rem;
     height: 2rem;
     width: 35%;
     margin-bottom: 1rem;
  }
+
  .btn:not(.btn-delete-bookmark){
-    background-color: rgb(237, 242, 239);
-    color: black;
+    background-color: gray;
+    color: white;
     border-radius: .5rem;
     border: 2px solid gray;
     
@@ -50,9 +52,14 @@
     cursor: pointer;
  }
 
+ .delete-btn {
+    cursor: pointer;
+ }
+
  .btn:hover {
     background-color: lightgray;
     border: 1px solid black;
+    color: black;
  }
 
  .flex-container{
@@ -82,11 +89,13 @@ input, label {
 
 .inputAndTitle {
     margin-right: 2rem;
+    padding-bottom: 1rem;
 }
 
 input {
     width: 13rem;
     margin-bottom: .5rem;
+    font-weight: 300;
 }
 
 .AddFilterByRating {

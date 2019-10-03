@@ -18,7 +18,7 @@ const generateBookmarksElement = function(bookmark) {
       bookmarkExpandView = `
         <div class = "expandContent">
           <button class="visit-btn">
-          <span class="visit-btn-label"> Visit Site </span>
+          <span class="visit-btn-label"> <a href="${bookmark.url}"> ${bookmark.url}</a></span>
           </button>
 
           <span class="rating-span"> ${bookmark.rating} </span>
@@ -159,7 +159,7 @@ const handleBookmarkAdd = function() {
 
 
 const handleDeleteBookmarkClicked = function() {
-  $('.bookmarks-list-results').on('click', '.delete-btn', function () {
+  $('.bookmarks-list-results').on('click', '.delete-btn', event => {
     const id = getElementID(event.currentTarget);
     console.log(id);
     console.log(`delete bookmark is working ${id}`);

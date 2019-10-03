@@ -174,10 +174,11 @@ const handleDeleteBookmarkClicked = function() {
 };
 
 const handleFilterRatingsDropdown = function () {
-  $('main').on('change', '.filter', function () {
+  $('.container').on('change', '.filter', function () {
+    store.myData.filter = 1;
     let filter = $(this).val();
     store.filterBookmarks(filter);
-    render();
+    //render();
   });
 };
 

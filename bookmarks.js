@@ -9,11 +9,11 @@ const generateBookmarksElement = function(item) {
 
   
   let bookmarkExpandView = ``;
-  let bookmarkTitle = `<span class="rating-span"> ${item.rating} </span>`;
+  let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i></span>`;
 
     if(item.expanded) {
       bookmarkTitle =  `<button class="delete-btn">
-        <span class="delete-btn-label"> Delete </span>
+        <span class="delete-btn-label"> <i class="far fa-trash-alt"></i> </span>
       </button>`;
 
       bookmarkExpandView = `
@@ -22,7 +22,7 @@ const generateBookmarksElement = function(item) {
           <span class="visit-btn-label"> <a href="${item.url}"> ${item.url}</a></span>
           </button>
 
-          <span class="rating-span"> ${item.rating} </span>
+          <span class="rating-span"> ${item.rating}<i class="far fa-star"></i> </span>
           <p> ${item.desc} </p>
         </div>`;
     }
@@ -45,7 +45,7 @@ const render = function() {
   let form = ``;
   store.myData.filter = 0;
 
- console.log(store.myData.adding);
+
   let items = [...store.myData.bookmarks];
 
   
@@ -171,54 +171,14 @@ const handleDeleteBookmarkClicked = function() {
   
 };
 
-// const createBookmarkListHTML = function(item){
-//   $('bookmarks-list-results').append(`
-//       <li>
-//       <button class="delete-btn">
-//       <span class="delete-btn-label"> Delete </span>
-//       </button>
-
-//       <div class = "expandContent">
-//         <button class="visit-btn">
-//         <span class="visit-btn-label"> <a href="${item.url}"> ${item.url}</a></span>
-//         </button>
-
-//         <span class="rating-span"> ${item.rating} </span>
-//         <p> ${item.desc} </p>
-//       </div> </li>`
-    
-
-//     // return `
-//     // <li class = "bookmark-element"  data-bookmark-id="${item.id}">
-//     // <span class="bookmark-item-title"> ${item.title} ${bookmarkTitle} </span>
-//     // ${bookmarkExpandView};
-//     // </li>`;
-//       //</li>
-//   //`);
-// };
-
-// const filterBookmarkList = function () {
-//   const filterRatingsValue = store.myData.filter;
-//   const filteredItems = store.myData.bookmarks.filter(item => item.rating >= filterRatingsValue);
-//   $('.bookmarks-list-results').html('');
-//   filteredItems.forEach(item => createBookmarkListHTML(item));
-  
-// };
-
-
 const handleFilterRatingsDropdown = function () {
-  $('.bookmarks-list-results').on('click', 'select', function () {
-    let value = parseInt($('select option:selected').val());
-    console.log(value);
-    store.filterBookmarks(value);
+  $('main').on('change', '.filter', function () {
+    let filter = $(this).val();
+    store.filterBookmarks(filter);
     render();
   });
 };
 
-
-/**
- * Event Listener Handlers
- */
 const bindEventListeners = function() {
   handleBookmarkClicked();
   handleNewBookmarkSubmit();

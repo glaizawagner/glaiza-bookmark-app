@@ -6,7 +6,6 @@ import store from './store.js';
 const generateBookmarksElement = function(item) {
 
   let bookmarkExpandView = ``;
-  let hiddenClass = '';
 
   let bookmarkTitle = `<span class="rating-span"> ${item.rating} <i class="far fa-star"></i> </span>`;
 
@@ -18,19 +17,23 @@ const generateBookmarksElement = function(item) {
 
     bookmarkExpandView = `
         <div class = "expandContent">
-          <button class="visit-btn"> 
-          <span class="visit-btn-label"> <a href="${item.url}"> Visit Site </a></span>
-          </button>
+         <span class="expanded-items">
+         <button class="visit-btn"> 
+         <span class="visit-btn-label"> <a href="${item.url}"> Visit Site </a></span>
+         </button>
 
-          <span class="rating-span"> ${item.rating}<i class="far fa-star"></i> </span>
-          <p> ${item.desc} </p>
+         <span class="rating-span"> ${item.rating}<i class="far fa-star"></i> </span>
+         
+         </span>
+         <p> ${item.desc} </p>
+         
         </div>
         `;
   } 
 
   return `
     <li class = "bookmark-element "  data-bookmark-id="${item.id}">
-      <span class="bookmark-item-title ${hiddenClass}"> ${item.title} ${bookmarkTitle} </span>
+      <span class="bookmark-item-title  star-title"> ${item.title} ${bookmarkTitle} </span>
       ${bookmarkExpandView}
       </li>
       `;
@@ -43,10 +46,9 @@ const generateBookmarksString = function (mybookmark) {
 
 
 const render = function() {
+  //renderError();
 
   let form = ``;
-
-  store.myData.filter = 0;
 
   let items = [...store.myData.bookmarks];
 
@@ -65,14 +67,7 @@ const render = function() {
         
         <div>
           <label for= "AddFilterByRating">Rating(s):</label>
-          <select class= "AddFilterByRating" name="AddFilterByRating" required>
-          <option selected disabled>Select Ratings</option>
-          <option value=5>★★★★★</option>
-          <option value=4>★★★★☆</option> 
-          <option value=3>★★★☆☆</> 
-          <option value=2>★★☆☆☆</option> 
-          <option value=1>★☆☆☆☆</option> 
-        </select>       
+          <input class="AddFilterByRating" name="AddFilterByRating" type="number" placeholder="Enter Rating from 1-5" min="1" max="5" required 1>     
       </div> 
 
         <div class="AddBookmarkdesc">
@@ -90,6 +85,10 @@ const render = function() {
 
   if(store.myData.adding) {
     handleCancelBtn();
+  }
+
+  if(store.filter >= 1) {
+    items = store.myData.bookmarks.filter(bookmark => bookmark.rating === store.filter);
   }
   
   const bookmarkListItemString = generateBookmarksString(items);
@@ -151,7 +150,7 @@ const handleBookmarkAdd = function() {
       })
       .catch(error => {
         store.setError(error.message);
-        render();
+        //renderError();
       });
   });
 };
@@ -164,18 +163,47 @@ const handleDeleteBookmarkClicked = function() {
         store.findAndDelete(id);
         render();
       })
-      .catch((error) => store.setError(error.message));
+      .catch((error) => {
+        store.setError(error.message);
+        //renderError();
+      });
   });
   
 };
 
 const handleFilterRatingsDropdown = function () {
-  $('.container').on('change', '.filter', function () {
-    let filter = parseInt($(this).val(), 10);
-    store.filterBookmarks(filter);
+  $('.filter').on('change', function () {
+    let filterResults = parseInt($(this).val(), 10);
+    store.filter = filterResults;
     render();
   });
 };
+
+// const  generatorError = function(message) {
+//   return `
+//   <section class="error-content" role="alert">
+//     <p>${message}</p>
+//     <button type="button" id="cancel-error" role="close-error"><i class="fa fa-times"></i></button>
+//   </section>
+//   `;
+// };
+
+// const renderError = function() {
+//   if(store.error) {
+//     const el = generatorError(store.error);
+//     $('.error-container').html(el);
+//   }else {
+//     $('.error-container').empty();
+//   }
+// };
+
+// const handleCloseError = function() {
+//   $('.error-container').on('click', '#cancel-error', function() {
+//     store.error(null);
+//     renderError();
+//   });
+// };
+
 
 const bindEventListeners = function() {
   handleBookmarkClicked();
@@ -184,6 +212,7 @@ const bindEventListeners = function() {
   handleCancelBtn();
   handleDeleteBookmarkClicked();
   handleFilterRatingsDropdown();
+  //handleCloseError();
 };
 
 export default {

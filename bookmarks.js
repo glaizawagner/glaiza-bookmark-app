@@ -88,7 +88,7 @@ const render = function() {
   }
 
   if(store.filter >= 1) {
-    items = store.myData.bookmarks.filter(bookmark => bookmark.rating === store.filter);
+    items = store.myData.bookmarks.filter(bookmark => bookmark.rating <= store.filter);
   }
   
   const bookmarkListItemString = generateBookmarksString(items);
